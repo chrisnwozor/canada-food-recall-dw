@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.37627.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "CanadaFoodETL", "CanadaFoodETL\CanadaFoodETL.dtproj", "{A8CC00DD-99B8-4B8A-9BC5-7624B39F2507}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8CC00DD-99B8-4B8A-9BC5-7624B39F2507}.Development|Default.ActiveCfg = Development
+		{A8CC00DD-99B8-4B8A-9BC5-7624B39F2507}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FA65135-FEE3-4447-91A8-73060B87A72A}
+	EndGlobalSection
+EndGlobal
