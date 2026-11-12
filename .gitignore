@@ -8,3 +8,6 @@
 **/obj/
 *.dtproj.user
 *.suo
+
+# Original screenshots (renamed copies are committed instead)
+docs/images/Screenshot*

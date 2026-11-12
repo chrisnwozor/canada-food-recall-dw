@@ -6,7 +6,7 @@ An end-to-end data warehouse built on **real Government of Canada open data**, u
 
 **Headline finding:** nearly **half of food recalls with a known cause (≈48%) are due to undeclared allergens**, with **milk** the single most common reason. About **37% of food recalls are Class 1** (high risk).
 
-![Dashboard](docs/images/dashboard.png)
+![Power BI dashboard](docs/images/dashboard.png)
 
 ---
 
@@ -31,7 +31,11 @@ Power BI dashboard
 
 The whole pipeline runs as **one SSIS package with 8 steps** and is **idempotent**: it can be rerun at any time without duplicating data.
 
-![SSIS control flow](docs/images/ssis_control_flow.png)
+![SSIS control flow: 8 steps, all succeeded](docs/images/ssis_control_flow.png)
+
+**Staging data flow:** 34,368 raw rows → 5,343 food recalls cleaned and converted, 0 sent to quarantine.
+
+![SSIS staging data flow](docs/images/ssis_staging_data_flow.png)
 
 ## Data source
 
@@ -67,6 +71,12 @@ Every column was profiled before any cleaning (`sql/profile_table.sql`: nulls, d
 | `dim_recall` | Title, product, URL, flags | SSIS Lookup (insert new only) |
 | `dim_issue` | 35 reasons grouped into Allergen, Microbial, Physical, Chemical... | SSIS Lookup (insert new only) |
 | `bridge_recall_issue` | 5,573 recall-reason links | SSIS, from a SQL view that splits reasons |
+
+![Star schema in the Power BI model](docs/images/star_schema.png)
+
+**Fact load:** Lookups swap category and recall class text for their surrogate keys before insert.
+
+![SSIS fact data flow](docs/images/ssis_fact_data_flow.png)
 
 Design choices: surrogate keys, an Unknown member (-1), conformed dimensions (`dim_date` can be shared with future marts), and a bridge table for the many-to-many recall–reason relationship.
 
