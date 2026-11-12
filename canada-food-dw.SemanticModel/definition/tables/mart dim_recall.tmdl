@@ -1,0 +1,74 @@
+table 'mart dim_recall'
+	lineageTag: 76aa9de8-723e-4824-8794-f58acba9ebf6
+
+	column recall_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 62777b0c-622e-4a09-bcd6-ea2a7cdbd658
+		summarizeBy: none
+		sourceColumn: recall_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: be842754-6327-4185-a9d9-8a65c97f49c6
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column product
+		dataType: string
+		lineageTag: 53cb1c82-7224-4a50-9976-5b12d7ac9c8f
+		summarizeBy: none
+		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
+	column url
+		dataType: string
+		lineageTag: aac1500d-6a10-49e6-96d5-8a1a8b2a6774
+		summarizeBy: none
+		sourceColumn: url
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_archived
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 495dce32-c492-4cbc-bf46-d1396d9836fd
+		summarizeBy: none
+		sourceColumn: is_archived
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_missing
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a20e4b39-7b4e-4760-a6d7-4ce60cdbe3c0
+		summarizeBy: none
+		sourceColumn: product_missing
+
+		annotation SummarizationSetBy = Automatic
+
+	column issue_missing
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2971a96a-54fa-4ed8-b73e-5f8a36505fb3
+		summarizeBy: none
+		sourceColumn: issue_missing
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'mart dim_recall' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ELDOV", "CanadaFoodDW"),
+				    mart_dim_recall = Source{[Schema="mart",Item="dim_recall"]}[Data]
+				in
+				    mart_dim_recall
+
+	annotation PBI_ResultType = Table
+

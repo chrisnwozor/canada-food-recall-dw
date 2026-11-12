@@ -1,0 +1,31 @@
+table 'mart dim_category'
+	lineageTag: 653017a6-5fb7-4944-a724-a9c989190388
+
+	column category_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 486f76a4-79dd-41af-8559-d97610b5784a
+		summarizeBy: none
+		sourceColumn: category_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 07841d29-0ff5-409e-86bf-d51e35ffcc4e
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'mart dim_category' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ELDOV", "CanadaFoodDW"),
+				    mart_dim_category = Source{[Schema="mart",Item="dim_category"]}[Data]
+				in
+				    mart_dim_category
+
+	annotation PBI_ResultType = Table
+

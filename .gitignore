@@ -1,0 +1,10 @@
+# Power BI: local machine settings and data cache (regenerated on refresh)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Visual Studio / SSIS build output and user settings
+**/.vs/
+**/bin/
+**/obj/
+*.dtproj.user
+*.suo

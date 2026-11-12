@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "kpiAllergenPct",
+  "position": {
+    "x": 1400,
+    "y": 20,
+    "z": 3000,
+    "height": 130,
+    "width": 500,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart fact_recall"
+                    }
+                  },
+                  "Property": "% Allergen (known reason)"
+                }
+              },
+              "queryRef": "mart fact_recall.% Allergen (known reason)",
+              "nativeQueryRef": "% Allergen (known reason)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

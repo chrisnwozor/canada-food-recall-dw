@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "barIssueGroup",
+  "position": {
+    "x": 20,
+    "y": 170,
+    "z": 4000,
+    "height": 420,
+    "width": 600,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart dim_issue"
+                    }
+                  },
+                  "Property": "issue_group"
+                }
+              },
+              "queryRef": "mart dim_issue.issue_group",
+              "nativeQueryRef": "issue_group"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart fact_recall"
+                    }
+                  },
+                  "Property": "Recalls by Issue"
+                }
+              },
+              "queryRef": "mart fact_recall.Recalls by Issue",
+              "nativeQueryRef": "Recalls by Issue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "mart fact_recall"
+                  }
+                },
+                "Property": "Recalls by Issue"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Why are foods recalled? (by issue group)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

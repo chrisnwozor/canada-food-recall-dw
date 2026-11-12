@@ -1,0 +1,44 @@
+relationship b3006c07-14e9-460c-b625-0b634db80c39
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'mart dim_date'.full_date
+	toColumn: LocalDateTable_754c4b49-fc8c-4e66-b53c-40c92f40b2fe.Date
+
+relationship c1e81e1b-6837-4cf6-83ff-93a6ebf2c128
+	fromColumn: 'mart bridge_recall_issue'.issue_key
+	toColumn: 'mart dim_issue'.issue_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 2d60bad4-21c3-4558-b6bd-889b390c9003
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'mart bridge_recall_issue'.recall_id
+	toColumn: 'mart dim_recall'.recall_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship bc6b0ce5-5cc4-4203-a3ba-e23239590eda
+	fromColumn: 'mart fact_recall'.category_key
+	toColumn: 'mart dim_category'.category_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship f858e2f5-c08c-481c-87f7-3f877bb6c50c
+	fromColumn: 'mart fact_recall'.date_key
+	toColumn: 'mart dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 68ed65f9-2998-4cce-9c3b-1b014d2a595c
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'mart fact_recall'.recall_id
+	toColumn: 'mart dim_recall'.recall_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 5d4960b3-099c-46af-94ad-29f69f1e0556
+	fromColumn: 'mart fact_recall'.recall_class_key
+	toColumn: 'mart dim_recall_class'.recall_class_key
+
+	annotation PBI_IsFromSource = FS
+

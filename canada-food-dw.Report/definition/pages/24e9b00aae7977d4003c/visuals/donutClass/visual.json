@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "donutClass",
+  "position": {
+    "x": 1520,
+    "y": 170,
+    "z": 6000,
+    "height": 420,
+    "width": 380,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart dim_recall_class"
+                    }
+                  },
+                  "Property": "recall_class"
+                }
+              },
+              "queryRef": "mart dim_recall_class.recall_class",
+              "nativeQueryRef": "recall_class"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart fact_recall"
+                    }
+                  },
+                  "Property": "Total Recalls"
+                }
+              },
+              "queryRef": "mart fact_recall.Total Recalls",
+              "nativeQueryRef": "Total Recalls"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'How dangerous? (recall class)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

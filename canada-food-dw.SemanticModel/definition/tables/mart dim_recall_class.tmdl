@@ -1,0 +1,47 @@
+table 'mart dim_recall_class'
+	lineageTag: cc145e68-e3e3-4be5-a855-575927ae6bbb
+
+	column recall_class_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b9701ab-8d62-411a-914f-d487454e1365
+		summarizeBy: none
+		sourceColumn: recall_class_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column recall_class
+		dataType: string
+		lineageTag: d44c8246-20be-48fb-9266-8d9199cbbc08
+		summarizeBy: none
+		sourceColumn: recall_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_level
+		dataType: string
+		lineageTag: b622d09d-b9fc-4edd-b18b-c3bfe5c7be5a
+		summarizeBy: none
+		sourceColumn: risk_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 4b245423-305f-4cf7-8ee2-629e3a65199f
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'mart dim_recall_class' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ELDOV", "CanadaFoodDW"),
+				    mart_dim_recall_class = Source{[Schema="mart",Item="dim_recall_class"]}[Data]
+				in
+				    mart_dim_recall_class
+
+	annotation PBI_ResultType = Table
+

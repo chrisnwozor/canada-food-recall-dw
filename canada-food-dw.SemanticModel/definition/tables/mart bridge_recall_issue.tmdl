@@ -1,0 +1,32 @@
+table 'mart bridge_recall_issue'
+	lineageTag: 0044c874-5c89-47a9-98ff-ca0b2c21b047
+
+	column recall_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 92560513-f5d0-4be0-96c2-66f06dceba4f
+		summarizeBy: none
+		sourceColumn: recall_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column issue_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 512b4b76-a788-417e-9d68-bf49b153aefd
+		summarizeBy: none
+		sourceColumn: issue_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'mart bridge_recall_issue' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ELDOV", "CanadaFoodDW"),
+				    mart_bridge_recall_issue = Source{[Schema="mart",Item="bridge_recall_issue"]}[Data]
+				in
+				    mart_bridge_recall_issue
+
+	annotation PBI_ResultType = Table
+

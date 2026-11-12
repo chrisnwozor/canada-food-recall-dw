@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["mart bridge_recall_issue","mart dim_category","mart dim_date","mart dim_issue","mart dim_recall","mart dim_recall_class","mart fact_recall"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'mart bridge_recall_issue'
+ref table 'mart dim_category'
+ref table 'mart dim_date'
+ref table DateTableTemplate_70f975af-553c-47d3-84ec-51e371436012
+ref table LocalDateTable_754c4b49-fc8c-4e66-b53c-40c92f40b2fe
+ref table 'mart dim_issue'
+ref table 'mart dim_recall'
+ref table 'mart dim_recall_class'
+ref table 'mart fact_recall'
+
+ref cultureInfo en-US
+

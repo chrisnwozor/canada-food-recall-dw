@@ -1,0 +1,82 @@
+table 'mart dim_date'
+	lineageTag: e86fe282-f182-469f-9d47-557b131f2dc8
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: d6e63a2a-cc8a-4fa7-b8c3-3623410fec36
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 46fcad6e-4be5-4559-9491-cb62ceb64a87
+		summarizeBy: none
+		sourceColumn: full_date
+
+		variation Variation
+			isDefault
+			relationship: b3006c07-14e9-460c-b625-0b634db80c39
+			defaultHierarchy: LocalDateTable_754c4b49-fc8c-4e66-b53c-40c92f40b2fe.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: b9369b90-c40d-4250-aeb2-8fe82995a2a8
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 5957ba63-8189-42ff-95bd-d78627a44846
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bcb3a8e-6022-4d06-9808-a3ad647da3f7
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: e2fb05d0-c159-4bd3-b0ba-eb8f649e47ff
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: c157bf9c-3fcb-4052-9955-c92dc5ea66a3
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'mart dim_date' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ELDOV", "CanadaFoodDW"),
+				    mart_dim_date = Source{[Schema="mart",Item="dim_date"]}[Data]
+				in
+				    mart_dim_date
+
+	annotation PBI_ResultType = Table
+

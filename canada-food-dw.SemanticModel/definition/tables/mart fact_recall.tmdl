@@ -1,0 +1,83 @@
+table 'mart fact_recall'
+	lineageTag: 73fc764a-8707-430e-bf2e-8d7f0015e36d
+
+	measure 'Total Recalls' = COUNTROWS('mart fact_recall')
+		formatString: #,0
+		lineageTag: fe10b8a9-ea3c-4225-a868-46fd473afe0e
+
+	measure 'High Risk Recalls' = CALCULATE([Total Recalls], 'mart dim_recall_class'[recall_class] = "Class 1")
+		formatString: #,0
+		lineageTag: acaf44b3-4a15-4060-9b5f-b591419e0db8
+
+	measure '% High Risk' = DIVIDE([High Risk Recalls], [Total Recalls])
+		formatString: 0.0%
+		lineageTag: dcc850bd-9f44-484d-a304-66b3fc28acc1
+
+	measure 'Recalls by Issue' = DISTINCTCOUNT('mart bridge_recall_issue'[recall_id])
+		formatString: #,0
+		lineageTag: c4a5aef2-83f9-49fc-be39-21c5498fa82f
+
+	measure 'Allergen Recalls' = CALCULATE([Recalls by Issue], 'mart dim_issue'[issue_group] = "Allergen")
+		formatString: #,0
+		lineageTag: 2d572ece-d6f0-4c79-8d35-b582c9b981a8
+
+	measure '% Allergen (known reason)' = DIVIDE([Allergen Recalls], CALCULATE([Recalls by Issue], 'mart dim_issue'[issue_group] <> "Unknown"))
+		formatString: 0.0%
+		lineageTag: 76350fdd-2858-4d51-9727-06ac6a4af0fe
+
+	column recall_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 537f5fbf-2211-45ab-93d2-b4a12397fbcd
+		summarizeBy: none
+		sourceColumn: recall_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 70619bd9-47a0-48fc-82a3-eba933d7776f
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 777d4925-77c1-4ef9-8957-22f97468d928
+		summarizeBy: none
+		sourceColumn: category_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column recall_class_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ce6cabf-207b-4b42-ae5f-a3b8b66e95fd
+		summarizeBy: none
+		sourceColumn: recall_class_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column recall_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 631ed31e-1788-472c-88d1-5db367382d39
+		summarizeBy: sum
+		sourceColumn: recall_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'mart fact_recall' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ELDOV", "CanadaFoodDW"),
+				    mart_fact_recall = Source{[Schema="mart",Item="fact_recall"]}[Data]
+				in
+				    mart_fact_recall
+
+	annotation PBI_ResultType = Table
+
